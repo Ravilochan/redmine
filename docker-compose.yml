@@ -11,7 +11,6 @@ services:
       - "./traefik.toml:/traefik.toml"
       - "./traefik_dynamic.toml:/traefik_dynamic.toml"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
-
   mariadb:
     image: docker.io/bitnami/mariadb:10.6
     restart: always
@@ -23,18 +22,10 @@ services:
       - MARIADB_USER=bn_redmine
       - MARIADB_PASSWORD=statwig
       - MARIADB_DATABASE=bitnami_redmine
-    labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=proxy"
-      - "traefik.http.routers.frontend.entrypoints=websecure"
-      - "traefik.http.routers.frontend.rule=Host(`redmine.statledger.io`)"
-      - "traefik.http.routers.frontend.tls=true"
-      - "traefik.http.routers.frontend.tls.certresolver=lets-encrypt"
-
   redmine:
     image: docker.io/bitnami/redmine:5
     ports:
-      - "80:3000"
+      - "3000:3000"
     volumes:
       - "redmine_data:/bitnami/redmine"
     depends_on:
@@ -47,7 +38,13 @@ services:
       - REDMINE_DATABASE_USER=bn_redmine
       - REDMINE_DATABASE_PASSWORD=statwig
       - REDMINE_DATABASE_NAME=bitnami_redmine
-
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=proxy"
+      - "traefik.http.routers.frontend.entrypoints=websecure"
+      - "traefik.http.routers.frontend.rule=Host(`redmine.statledger.io`)"
+      - "traefik.http.routers.frontend.tls=true"
+      - "traefik.http.routers.frontend.tls.certresolver=lets-encrypt"
 volumes:
   mariadb_data:
     driver: local
