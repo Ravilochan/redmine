@@ -1,0 +1,27 @@
+[entryPoints]
+  [entryPoints.web]
+    address = ":80"
+    [entryPoints.web.http.redirections.entryPoint]
+      to = "websecure"
+      scheme = "https"
+
+  [entryPoints.websecure]
+    address = ":443"
+
+# [api]
+#   dashboard = true
+
+# [log]
+#   level = "DEBUG"  
+
+[certificatesResolvers.lets-encrypt.acme]
+  email = "mahesh@statwig.com"
+  storage = "acme.json"
+  [certificatesResolvers.lets-encrypt.acme.tlsChallenge]
+
+[providers.docker]
+  watch = true
+  exposedByDefault = false
+  network = "proxy"
+[providers.file]
+  filename = "dynamic.toml"
