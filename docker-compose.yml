@@ -3,6 +3,7 @@ services:
   traefik:
     image: "traefik"
     restart: unless-stopped
+    container_name: traefik
     ports:
       - "80:80"
       - "443:443"
@@ -14,11 +15,13 @@ services:
   mariadb:
     image: mariadb
     restart: always
+    container_name: database
     volumes:
       - "mariadb_data:/mariadb"
     environment:
       # ALLOW_EMPTY_PASSWORD is recommended only for development.
       # - ALLOW_EMPTY_PASSWORD=yes
+      - MARIADB_ROOT_PASSWORD=statwig
       - MARIADB_USER=user_redmine
       - MARIADB_PASSWORD=statwig2022
       - MARIADB_DATABASE=statwig_redmine
@@ -30,6 +33,7 @@ services:
       - "redmine_data:/redmine"
     depends_on:
       - mariadb
+    container_name: redmine
     environment:
       # ALLOW_EMPTY_PASSWORD is recommended only for development.
       # - ALLOW_EMPTY_PASSWORD=yes
@@ -53,5 +57,5 @@ volumes:
 
 networks:
   default:
-    external:
-      name: proxy
+    name: proxy
+    external: true
