@@ -42,6 +42,11 @@ services:
       - REDMINE_DATABASE_USER=user_redmine
       - REDMINE_DATABASE_PASSWORD=statwig2022
       - REDMINE_DATABASE_NAME=statwig_redmine
+      - REDMINE_SMTP_HOST=smtp.gmail.com
+      - REDMINE_SMTP_PORT=587
+      - REDMINE_SMTP_USER=dev@statwig.com
+      - REDMINE_SMTP_PASSWORD=StaTwig@123
+      - REDMINE_SMTP_SECURE=false
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=proxy"
