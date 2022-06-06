@@ -2,8 +2,8 @@ version: "3.7"
 services:
   traefik:
     image: "traefik"
-    restart: unless-stopped
     container_name: traefik
+    restart: unless-stopped
     ports:
       - "80:80"
       - "443:443"
@@ -12,12 +12,13 @@ services:
       - "./traefik.toml:/traefik.toml"
       - "./dynamic.toml:/dynamic.toml"
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
+
   mariadb:
     image: mariadb
-    restart: always
     container_name: database
+    restart: always
     volumes:
-      - "mariadb_data:/mariadb"
+      - "./mariadb_data:/mariadb"
     environment:
       # ALLOW_EMPTY_PASSWORD is recommended only for development.
       # - ALLOW_EMPTY_PASSWORD=yes
@@ -25,15 +26,16 @@ services:
       - MARIADB_USER=user_redmine
       - MARIADB_PASSWORD=statwig2022
       - MARIADB_DATABASE=statwig_redmine
+
   redmine:
     image: redmine:5.0.1
+    container_name: redmine
     ports:
       - "3000:3000"
     volumes:
-      - "redmine_data:/redmine"
+      - "./redmine_data:/redmine"
     depends_on:
       - mariadb
-    container_name: redmine
     environment:
       # ALLOW_EMPTY_PASSWORD is recommended only for development.
       # - ALLOW_EMPTY_PASSWORD=yes
@@ -54,6 +56,7 @@ services:
       - "traefik.http.routers.frontend.rule=Host(`redmine.statledger.io`)"
       - "traefik.http.routers.frontend.tls=true"
       - "traefik.http.routers.frontend.tls.certresolver=lets-encrypt"
+
 volumes:
   mariadb_data:
     driver: local
