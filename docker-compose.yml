@@ -32,7 +32,7 @@ services:
       - "3000:3000"
     volumes:
       - "./redmine_data:/redmine"
-      - "./configuration.yml:/usr/src/redmine/config/configuration.yml'"
+      - "./configuration.yml:/usr/src/redmine/config/configuration.yml"
     depends_on:
       - mariadb
     environment:
