@@ -82,7 +82,7 @@ To configure Redmine to send email using SMTP you can set the following environm
 
 This would be an example of SMTP configuration using a Gmail account:
 
-- Modify the [`docker-compose.yml`](https://github.com/bitnami/bitnami-docker-redmine/blob/master/docker-compose.yml) file present in this repository:
+- Modify the [`docker-compose.yml`](https://github.com/Ravilochan/redmine/blob/main/docker-compose.yml) file present in this repository:
 
   ```yaml
     redmine:
@@ -117,7 +117,7 @@ This would be an example of SMTP configuration using a Gmail account:
 
 The Bitnami Redmine container supports connecting the Redmine application to an external database. This would be an example of using an external database for Redmine.
 
-- Modify the [`docker-compose.yml`](https://github.com/bitnami/bitnami-docker-redmine/blob/master/docker-compose.yml) file present in this repository:
+- Modify the [`docker-compose.yml`](https://github.com/Ravilochan/redmine/blob/main/docker-compose.yml) file present in this repository:
 
   ```diff
      redmine:
@@ -256,40 +256,6 @@ Update the image tag in `docker-compose.yml` and re-create your container with t
 ```console
 $ docker-compose up -d
 ```
-
-## Notable Changes
-
-### 4.2.1-debian-10-r70
-
-- The size of the container image has been decreased.
-- The configuration logic is now based on Bash scripts in the _rootfs/_ folder.
-- It is now possible to use an already populated Redmine database from another installation. In order to do this, use the environment variable `REDMINE_SKIP_BOOTSTRAP`, which forces the container not to run the initial Redmine setup wizard.
-- The following environment variables have been deprecated. They will continue to work as before, but support for these may be removed in a future update:
-
-  - `REDMINE_DB_POSTGRES` in favor of `REDMINE_DATABASE_HOST`. When used, `REDMINE_DATABASE_TYPE=postgresql` will also be set.
-  - `REDMINE_DB_MYSQL`, in favor of `REDMINE_DATABASE_HOST`. Whenused, `REDMINE_DATABASE_TYPE=mariadb` will also be set.
-
-## Contributing
-
-We'd love for you to contribute to this container. You can request new features by creating an [issue](https://github.com/bitnami/bitnami-docker-redmine/issues), or submit a [pull request](https://github.com/bitnami/bitnami-docker-redmine/pulls) with your contribution.
-
-## Issues
-
-If you encountered a problem running this container, you can file an [issue](https://github.com/bitnami/bitnami-docker-redmine/issues/new). Be sure to include the following information in your issue:
-
-- Host OS and version
-- Docker version (`docker version`)
-- Output of `docker info`
-- Version of this container
-- The command you used to run the container, and any relevant output you saw (masking any sensitive information)
-
-### Community supported solution
-
-Please, note this asset is a community-supported solution. This means that the Bitnami team is not actively working on new features/improvements nor providing support through GitHub Issues. Any new issue will stay open for 20 days to allow the community to contribute, after 15 days without activity the issue will be marked as stale being closed after 5 days.
-
-The Bitnami team will review any PR that is created, feel free to create a PR if you find any issue or want to implement a new feature.
-
-New versions and releases cadence are not going to be affected. Once a new version is released in the upstream project, the Bitnami container image will be updated to use the latest version, supporting the different branches supported by the upstream project as usual.
 
 ## License
 
